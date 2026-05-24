@@ -142,9 +142,11 @@
 
 \def\qd{\,{\mathchar'26\mkern-12mu d}}
 
-
-
-
+\newcommand{\phg}{\mathrm{phg}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\Tb}{\mathbb{T}}
+\newcommand{\Pb}{\mathbb{P}}
+\newcommand{\Int}{\mathrm{Int}}
 
 \begin{document}
 
@@ -161,9 +163,21 @@
 \begin{frame}{Introduction}
     In this talk I will discuss the tangent groupoid theory of pseudodifferential operators whose symbols have asymptotic expansion like
     \[
-        \sigma(x,\xi) \sim \sum_{\ell=0}^k \sum_{j=0}^{\infty} a_{j,k}(x,\xi)\log(|\xi|)^\ell
+        \sigma(x,\xi) \sim \sum_{\ell=0}^k \sum_{j=0}^{\infty} a_{j,\ell}(x,\xi)\log(|\xi|)^\ell
     \]
     as $\xi\to \infty,$ where $a_{j,k}(x,\xi)$ is homogeneous of order $m-j$ in $\xi.$
+    \pause
+    Log-polyhomogeneous pseudodifferential operators were introduced by Lesch in 1999.
+\end{frame}
+
+\begin{frame}{The main theorem}
+    \begin{theorem}
+        Let $(M,H)$ be a compact filtered manifold, with homogeneous dimension $Q.$ Let $A$ be a $k$-log-polyhomogeneous pseudodifferential operator of order $-Q.$ Let $\{\lambda(n,A)\}_{n=0}^\infty$ be the sequence of eigenvalues of $A,$ arranged in order of decreasing absolute value. We have
+        \[
+            \sum_{n=0}^N \lambda(n,A) = \frac{1}{Q(k+1)!}\Res_k(A)\log(N)^k + o(\log(N)^k),\quad N\to\infty.
+        \]
+    \end{theorem}
+    I will explain the notation and terminology later.
 \end{frame}
 
 \section{What is a log-polyhomogeneous function?}\label{log_poly_section}
@@ -172,11 +186,271 @@
     \huge{Section \ref{log_poly_section}: What is a log-polyhomogeneous function?}
 \end{frame}
 
+\begin{frame}{Some notation}
+    Let $V=\Rl^N$ be a graded vector space, with anisotropic dilations
+    \[
+        \delta_t = \bigoplus_{k=1}^N t^{w_k},\quad t > 0.
+    \]
+    where $w_1,\ldots,w_N>0.$\\\pause
+    $\delta_t$ acts on distributions $K\in \Sc'(V)$ by pushfoward.
+    \[
+        ((\delta_t)^*K,f) = (K,f\circ \delta_{t}^{-1}),\quad t>0,\, f \in \Sc(V).
+    \]
+\end{frame}
+
+\begin{frame}{Homogeneous and almost-homogeneous functions}
+    We say that $K\in \Sc'(V)$ is \emph{homogeneous} of degree $m\in \Cplx$ if
+    \[
+        (\delta_t)^*K = t^mK,\quad t > 0
+    \]
+    and \emph{almost homogeneous} of degree $m\in \Cplx$ if
+    \[
+        (\delta_t)^*K-t^mK\in \Sc(V),\quad t > 0.
+    \]
+\end{frame}
+
+\begin{frame}{Infinitesimal forms of homogeneity}
+    Let $Zf := \frac{d}{dt}|_{t=1}f\circ \delta_t$ be the generator of the dilations $\delta_t,$ i.e.
+    \[
+        Z := \sum_{j=1}^N w_jx_j\frac{\partial}{\partial x_j}
+    \]
+    \begin{theorem}[Euler, 18th century]
+        A distribution $K\in \Sc'(V)$ is homogeneous of degree $m$ if and only if
+        \[
+            (Z-m)K=0.
+        \]
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{Infinitesimal form of almost-homogeneity}
+    Similarly...
+    \begin{theorem}
+        A distribution $K\in \Sc'(V)$ is almost-homogeneous of degree $m$ if and only if
+        \[
+            (Z-m)K \in \Sc(V).
+        \]
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{Taylor's lemma}
+    Taylor proved that an almost-homogeneous function is almost a homogeneous function.
+    \begin{lemma}[Taylor(?), 1984]
+        Let $K\in C^{\infty}(V)\cap \Sc'(V).$ If $K$ is almost homogeneous of degree $m,$ then there exists a homogeneous function $H\in C^{\infty}(V\setminus \{0\})$ such that for any $\psi\in C^\infty_c(V)$ with $\psi=1$ near zero, we have
+        \[
+            K-(1-\psi)H \in \Sc(V).
+        \]
+    \end{lemma}
+    Obviously we have
+    \[
+        H(\xi) = \lim_{t\to\infty} t^{-m}K(\delta_t\xi),\quad x \in V\setminus \{0\}.
+    \]
+    The theorem more-or-less amounts to the identity
+    \[
+        t^{-m}K(\delta_t \xi)-K(\xi) = \int_1^t s^{-m-1}((Z-m)K)(\delta_s \xi)\,ds,\quad t>0,\, \xi\in \Rl^N.
+    \]
+\end{frame}
+
+\begin{frame}{Polyhomogeneous functions}
+    A function $K\in C^{\infty}(V)$ is \emph{polyhomogeneous} if there exist homogeneous functions $\{K_{\ell}\}_{\ell=0}^\infty$ of degrees $\{m-\ell\}_{\ell=0}^\infty$ such that
+    \[
+        K(\xi)\sim\sum_{\ell=0}^\infty K_{\ell}(\xi),\quad |\xi|\to\infty
+    \]
+    in the usual sense.
+    \begin{theorem}[Debord-Skandalis, 2014]
+        Let $\widetilde{\delta}_t(\xi,h) := (\delta_t\xi,th).$ A smooth function $K$ on $V$ is polyhomogeneous of order $m$ if and only if there exists an almost homogeneous function $\widetilde{K}$ on $V\times \Rl$ such that
+        \[
+            K(\xi) = \widetilde{K}(\xi,1),\quad\xi\in \Rl^N.
+        \]
+    \end{theorem}
+    Moreover, $\widetilde{K}(\xi,0)$ is an almost-homogeneous function whose homogeneous part is the principal term $K_0.$
+\end{frame}
+
+\begin{frame}{Log-homogeneous functions}
+    Let $|\cdot|$ be a $\delta$-homogeneous norm on $V,$ i.e. $|\delta_t\xi| = t|\xi|.$
+
+    Functions of the form $L(\xi) = \log(|\xi|)$ are special because $L\circ\delta_t = \log(t)+L,$ or in other words
+    \[
+        ZL = 1.
+    \]
+    \pause
+    We will say that a function $K\in C^{\infty}(V\setminus \{0\})$ is log-homogeneous of order $(m,k)$ if there exist $H_0,\ldots,H_{k}$,homogeneous functions of order $m$, such that
+    \[
+        K(\xi) = \sum_{\ell=0}^k H_{\ell}(\xi)\log(|\xi|)^\ell.
+    \]
+\end{frame}
+
+\begin{frame}{Log-homogeneous functions}
+\begin{lemma}
+    A function $K\in C^{\infty}(V\setminus\{0\})$ is log-homogeneous of order $(m,k)$ if and only
+    \[
+        (Z-m)^kK = 0.
+    \]
+\end{lemma}
+Proof: Induction on $k.$
+\end{frame}
+
+\begin{frame}{Almost-log-homogeneous functions}
+    By analogy with almost-homogeneous functions, say that $K\in C^\infty(V)$ is almost log-homogeneous of order $(m,k)$ if
+    \[
+        (Z-m)^{k+1}K \in \Sc(V)
+    \]
+    \begin{lemma}[Logarithmic Taylor lemma]
+        Let $K\in C^{\infty}(V)\cap \Sc'(V).$ If $K$ is almost homogeneous of degree $m,$ then there exists a log-homogeneous function $H\in C^{\infty}(V\setminus \{0\})$  such that for any $\psi\in C^\infty_c(V)$ with $\psi=1$ near zero, we have
+        \[
+            K-(1-\psi)H \in \Sc(V).
+        \]
+    \end{lemma}
+\end{frame}
+
+
+\begin{frame}{log-polyhomogeneous functions}
+    Say that a function $K\in C^{\infty}(V)$ is log-polyhomogeneous of order $(m,k)$ if there exist homogeneous functions $\{K_{\ell,j}\}_{j=0}^\infty$ such that
+    \[
+        K(\xi) \sim\sum_{\ell=0}^k \sum_{j=0}^\infty \log(|\xi|)^jK_{\ell,j}(\xi),\quad |\xi|\to\infty.
+    \]
+    \begin{theorem}
+        Let $\widetilde{\delta}_t(\xi,h) := (\delta_t\xi,th).$ A smooth function $K$ on $V$ is log-polyhomogeneous of order $(m,k)$ if and only if there exists an almost homogeneous function $\widetilde{K}$ on $V\times \Rl$ such that
+        \[
+            K(\xi) = \widetilde{K}(\xi,1),\quad\xi\in \Rl^N.
+        \]
+    \end{theorem}
+    Moreover, $\widetilde{K}(\xi,0)$ is an almost log-homogeneous function whose log-homogeneous part is the principal term $\xi\to \log(|\xi|)^{k}K_{k,0}(\xi).$
+\end{frame}
+
 \section{What is an operator with log-polyhomogeneous symbol?}\label{operator_section}
+
+\begin{frame}
+    \huge{Section \ref{operator_section}: What is an operator with log-polyhomogeneous symbol?}
+\end{frame}
+
+\begin{frame}{The $H$-tangent groupoid}
+    Let $M$ be a manifold, and let
+    \[
+        0=H^0 < H^1 <\cdots < H^N=TM
+    \]
+    be a Lie filtration of the tangent bundle. We have an osculating bundle $T_HM$ of graded nilpotent Lie groups and an $H$-tangent groupoid
+    \[
+        \Tb_HM := (T_HM\times \{0\})\sqcup (M\times M\times \Rl^{\times}).
+    \]
+    which is equipped with the correct topology.
+\end{frame}
+
+\begin{frame}{The $H$-tangent groupoid}
+    The range map
+    \[
+        r:\Tb_HM\to M\times \Rl
+    \]
+    defines a set $\Ec'_r(\Tb_HM)$ of $r$-fibred distributions, defined as $C^{\infty}(M\times \Rl)$-linear maps
+    \[
+        \Pb:C^{\infty}(\Tb_HM)\to C^{\infty}(M\times \Rl).
+    \]
+    \pause
+    The zoom action is
+    \[
+        \alpha_t(x,y,h) = (x,y,t^{-1}h),\quad \alpha_t((x,z),0) = ((x,\delta_t z),0).
+    \]
+\end{frame}
+
+\begin{frame}{The generator of the zoom action}
+    Let $Z$ be the vector field on $\Tb_HM$ which generates the zoom action, i.e.
+    \[
+        Zf := \frac{d}{dt}|_{t=1} f\circ\alpha_t.
+    \]
+    The Lie derivative by $Z$ acts on $r$-fibred distributions, i.e.
+    \[
+        \Lc_Z\Pb := \frac{d}{dt}_{t=1}(\alpha_t)_*\Pb.
+    \]
+\end{frame}
+
+\begin{frame}{The van Erp-Yuncken calculus}
+    \begin{definition}[van Erp-Yuncken (2019)]
+        A pseudodifferential family $\Pb$ of order $m$ is an $r$-fibred distribution on $\Tb_HM$ such that
+        \[
+            (\Lc_Z-m)\Pb \in C^{\infty}_p(\Tb_HM,\Omega_r).
+        \]
+        A pseudodifferential operator $P$ of order $m$ is defined by its Schwartz kernel being of the form $\Pb_{h=1}$ for some pseudodifferential family $\Pb.$
+    \end{definition}
+    Moreover, if $\Pb_1=P,$ then $\Pb_0$ is an approximately homogeneous distribution on $T_HM$ which represents the principal (co)symbol of $P.$
+\end{frame}
+
+\begin{frame}{The log-polyhomogeneous van Erp-Yuncken calculus}
+    The natural thing to do is to define $k$-log-polyhomogeneous operators in the same way.
+    \begin{definition}
+        A $k$-log-polyhomogeneous family is an $r$-fibred distribution $\Pb \in \Ec'_r(\Tb_HM)$ such that
+        \[
+            (\Lc_Z-m)^{k+1}\Pb \in C^{\infty}_p(\Tb_HM,\Omega_r).
+        \]
+        A pseudodifferential operator $P$ of order $(m,k)$ is defined by its Schwartz kernel being of the form $\Pb_{h=1}$ for some pseudodifferential family $\Pb.$
+    \end{definition}
+    Denote the set of pseudodifferential operators with $k$-log-polyhomogeneous order $(m,k)$ as $\Psi^{m,k}_H(M).$
+\end{frame}
+
+\begin{frame}{Yes, it is the right definition}
+
+\end{frame}
+
+\begin{frame}{Some obvious facts}
+    It is pretty straightforward to check that $\bigcup_{m,k}\Psi^{m,k}_H(M)$ is bi-graded by $m$ and $k,$ i.e.
+    \[
+        \Psi^{m_0,k_0}_H(M)\cdot \Psi^{m_1,k_1}_H(M)\subseteq \Psi^{m_0+m_1,k_0+k_1}_H(M).
+    \]
+    We also have closure under the adjoint operation, etc. etc.
+\end{frame}
+
+\begin{frame}{A less-than-obvious fact}
+    The symbol mapping goes like
+    \[
+        0\rightarrow \Psi^{m-1,k}_H(M)\rightarrow \Psi^{m,k}_H(M)\rightarrow \Sigma^{m,k}_H(M)\rightarrow 0.
+    \]
+    where the symbol class $\Sigma^{m,k}_H(M)$ has a non-obvious definition.
+\end{frame}
 
 \section{The residue and the trace}\label{residue_section}
 
+\begin{frame}
+    \huge{Section \ref{residue_section}: The residue and the trace}
+\end{frame}
+
+\begin{frame}{Back to functions}
+    Again let $V$ be a vector space with a group of dilations $\{\delta_t\}_{t>0}.$ Let $S^{m}_{\phg}(V)$ be the set of polyhomogeneous smooth functions of order $m,$ i.e.
+    \[
+        S^{m}_{\phg}(V) = \{f\in C^\infty(V)\;:\; f\sim\sum_{j=0}^\infty f_j,\, f_j(\delta_t\xi)=t^mf_j(\xi)\}.
+    \]
+    There are two important functionals on $S^{m}_{\phg}(V),$, depending on the value of $m.$ They are the \emph{canonical integral},
+    \[
+        \Int:S^{m}_{\phg}(V)\to \Cplx,\quad m\in \Cplx\setminus \{-Q,-Q+1,-Q+2,\ldots\}
+    \]
+    and the \emph{residue}
+    \[
+        \Res:S^{m}_{\phg}(V)\to\Cplx,\quad m\in \Itgr.
+    \]
+\end{frame}
+
+\begin{frame}{Debord-Skandalis description of the canonical integral and the residue}
+    Let $K\in S^m_{\phg}(V).$ By Debord-Skandalis' characterisation, there exists an almost-homogeneous function $\widetilde{K}$ on $V\times \Rl$ such that
+    \[
+        K(\xi) = \widetilde{K}(\xi,1).
+    \]
+    Let
+    \[
+        a(\xi,h) := \frac{d}{dt}|_{t=1}(t^{-m}\widetilde{K}\circ \widetilde{\delta}_t) = (\widetilde{Z}-m)\widetilde{K}(\xi,h).
+    \]
+    and $r(h) := \int_{V} a(\xi,h)\,d\xi.$
+    We have
+    \[
+        \Res(K) = r(0)
+    \]
+    and for sufficiently large $n,$
+    \[
+        \Int(K) = \sum_{j=0}^n \frac{r^{(j)}(0)}{m-Q+j}+\int_0^1 ....
+    \]
+\end{frame}
+
 \section{Spectral theory and the trace theorem}\label{spectral_section}
+
+\begin{frame}
+    \huge{Section \ref{spectral_section}: Spectral theory and the trace theorem}
+\end{frame}
 
 \begin{frame}
 \structure{\begin{center}
