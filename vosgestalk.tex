@@ -14,6 +14,7 @@
 \usetheme{Madrid}
 
 \usepackage{amssymb,amsmath,amscd,amsfonts,amsthm,dsfont,color,graphicx}
+\usepackage[bbgreekl]{mathbbol}
 \usepackage{amscd}
 %\usepackage[numbers]{natbib}
 % \usepackage[french]{babel}
@@ -147,6 +148,16 @@
 \newcommand{\Tb}{\mathbb{T}}
 \newcommand{\Pb}{\mathbb{P}}
 \newcommand{\Int}{\mathrm{Int}}
+
+
+
+\newcommand{\Psib}{\mathbb{\Psi}}
+\newcommand{\Sigmab}{\mathbb{\Sigma}}
+\newcommand{\Qb}{\mathbb{Q}}
+\newcommand{\Ab}{\mathbb{A}}
+\newcommand{\Bb}{\mathbb{B}}
+\newcommand{\Db}{\mathbb{D}}
+\newcommand{\Beta}{\mathrm{B}}
 
 \begin{document}
 
@@ -335,17 +346,29 @@ Proof: Induction on $k.$
     which is equipped with the correct topology.
 \end{frame}
 
+\begin{frame}{Reminder on notation}
+    \begin{itemize}
+        \item{} $(M,H)$ is a filtered manifold.
+        \item{} $Q = \sum_{k=1}^{\infty} k(\mathrm{rank}(H^k)-\mathrm{rank}(H^{k-1}))$ is its homogeneous dimension.
+        \item{} $T_HM$ is the osculating groupoid, with range map
+        \[
+            r:T_HM\to M
+        \]
+        \item{} $\Tb_HM$ is the $H$-tangent groupoid, with range map
+        \[
+            r:\Tb_HM\to \Rl\times M.
+        \]
+        \item{} $\Ec'_r(G)$ is the space of $r$-fibred distributions
+        \[
+            C^\infty(G)\to C^\infty(G^{(0)})
+        \]
+        \item{} $\Omega_r := \Omega \mathrm{ker}(dr)$ is the bundle of densities transversal to the $r$-fibres.
+        \item{} $C^\infty_p(G,\Omega_r)$ is the space of $r$ and $s$ properly supported $r$-transversal densities.
+    \end{itemize}
+\end{frame}
+
 \begin{frame}{The $H$-tangent groupoid}
-    The range map
-    \[
-        r:\Tb_HM\to M\times \Rl
-    \]
-    defines a set $\Ec'_r(\Tb_HM)$ of $r$-fibred distributions, defined as $C^{\infty}(M\times \Rl)$-linear maps
-    \[
-        \Pb:C^{\infty}(\Tb_HM)\to C^{\infty}(M\times \Rl).
-    \]
-    \pause
-    The zoom action is
+    The zoom action on $\Tb_HM$ is
     \[
         \alpha_t(x,y,h) = (x,y,t^{-1}h),\quad \alpha_t((x,z),0) = ((x,\delta_t z),0).
     \]
@@ -386,7 +409,9 @@ Proof: Induction on $k.$
 \end{frame}
 
 \begin{frame}{Yes, it is the right definition}
-
+    \begin{theorem}[M. 2026]
+        If $H = \mathrm{triv.}$ is the trivial filtration, then $\Psi^{m,k}_H(M)$ is the operators which locally have symbol function that is log-polyhomogeneous of order $(m,k).$
+    \end{theorem}
 \end{frame}
 
 \begin{frame}{Some obvious facts}
@@ -403,6 +428,19 @@ Proof: Induction on $k.$
         0\rightarrow \Psi^{m-1,k}_H(M)\rightarrow \Psi^{m,k}_H(M)\rightarrow \Sigma^{m,k}_H(M)\rightarrow 0.
     \]
     where the symbol class $\Sigma^{m,k}_H(M)$ has a non-obvious definition.
+\end{frame}
+
+\begin{frame}
+    \begin{definition}
+        Let
+        \[
+            \Sigmab^{m,k}_H(M) := \{T \in \Ec'_r(T_HM)\;:\;(\Lc_Z-m)^{k+1}T \in C^\infty_p(T_HM,\Omega_r)\},\quad k\geq 0
+        \]
+        and
+        \[
+            \Sigma^{m,k}_H(M) := \Sigmab^{m,k}_H(M)/\Sigmab^{m,k-1}_H(M),\quad k\geq 1.
+        \]
+    \end{definition}
 \end{frame}
 
 \section{The residue and the trace}\label{residue_section}
@@ -441,9 +479,10 @@ Proof: Induction on $k.$
         \Res(K) = r(0)
     \]
     and for sufficiently large $n,$
-    \[
-        \Int(K) = \sum_{j=0}^n \frac{r^{(j)}(0)}{m-Q+j}+\int_0^1 ....
-    \]
+    \begin{align*}
+        \Int(K) &= \sum_{j=0}^n \frac{1}{j!}\frac{r^{(j)}(0)}{j-m-Q}\\
+                &+ \frac{1}{(n-1)!}\int_0^1 r^{(n)}(u)\,u^{n-m-Q-1}\Beta(1-u;n,m+Q-n+1)\,du
+    \end{align*}
 \end{frame}
 
 \section{Spectral theory and the trace theorem}\label{spectral_section}
@@ -451,6 +490,67 @@ Proof: Induction on $k.$
 \begin{frame}
     \huge{Section \ref{spectral_section}: Spectral theory and the trace theorem}
 \end{frame}
+
+\begin{frame}{Operator ideals}
+    Let $\Hc$ be a Hilbert space, and $\Kc(\Hc)$ is the ideal of compact operators on $\Hc.$ For $T\in \Kc(\Hc),$ let $\lambda(T) = \{\lambda(n,T)\}_{n=0}^\infty$ be a sequence of eigenvalues of $T.$
+    \begin{enumerate}
+        \item{} We arrange the sequence such that $|\lambda(n,T)|$ is non-increasing. This is ambiguous, but ultimately unimportant.
+        \item{} If $T$ has finitely many eigenvalues (including none at all, this can happen in the non-normal case!) then $\lambda(T)$ should be filled out with zeros.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Weyl's inequality}
+    $\lambda(n,|T|)$ is the $(n+1)$th singular value of $T.$ Note that $|\lambda(n,T)|$ and $\lambda(n,|T|)$ are very different in general. The best we can say is that
+    \[
+        \prod_{n=0}^N |\lambda(n,T)| \leq \prod_{n=0}^N \lambda(n,|T|),\quad N\geq 0.
+    \]
+    (This is Weyl's inequality).
+\end{frame}
+
+\begin{frame}{Logarithmically weak-trace class operators}
+    \begin{definition}
+        Let $p,k\geq 0.$ Define
+        \[
+            \Ec_{p,k}(\Hc) := \{T \in \Kc(\Hc)\;:\; \lambda(n,|T|) = O(\frac{\log(n)^k}{n^{1/p}})\}.
+        \]
+    \end{definition}
+    Elementary eigenvalue estimates ensure that
+    \[
+        \Ec_{p,k}\cdot \Ec_{q,\ell} \subseteq \Ec_{r,k+\ell},\quad r^{-1}=p^{-1}+q^{-1}.
+    \]
+\end{frame}
+
+\begin{frame}{Log-polyhomogeneous operators are weak-trace-class}
+\begin{theorem}[M. (2026)]
+    Let $(M,H)$ be a closed filtered manifold. For $m>0,$ we have
+    \[
+        \Psi^{-m,k}_H(M)\subset \Ec_{\frac{Q}{m},k}(L_2(M)).
+    \]
+\end{theorem}
+\end{frame}
+
+\begin{frame}{Eigenvalue estimates for weak-trace-class operators}
+    Weyl's inequality implies that if $A \in \Psi^{-m,k}_H(M),$ then
+    \[
+        \lambda(n,A) = O(n^{-\frac{Q}{m}}\log(n)^k),\quad n\to\infty.
+    \]
+    Probably we can do better than this, and get
+    \[
+        \lambda(n,A) \sim c(A)n^{-\frac{Q}{m}}\log(n)^k
+    \]
+    for some $c(A),$ but this is out of reach at the moment.
+\end{frame}
+
+\begin{frame}{Asymptotics for sums of eigenvalues}
+    The best I can do at the moment concerns $m=Q$ and spectral averages:
+    \begin{theorem}[M. (2026)]
+        Let $A \in \Psi^{-Q,k}_H(M).$ We have
+        \[
+            \sum_{n=0}^N \lambda(n,A) = \frac{1}{(k+1)!Q}\Res_k(A)\log(N)^{k+1}+o(\log(N)^{k+1}).
+        \]
+    \end{theorem}
+\end{frame}
+
 
 \begin{frame}
 \structure{\begin{center}
