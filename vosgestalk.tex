@@ -158,6 +158,7 @@
 \newcommand{\Bb}{\mathbb{B}}
 \newcommand{\Db}{\mathbb{D}}
 \newcommand{\Beta}{\mathrm{B}}
+\newcommand{\res}{\mathrm{res}}
 
 \begin{document}
 
@@ -185,7 +186,7 @@
     \begin{theorem}
         Let $(M,H)$ be a compact filtered manifold, with homogeneous dimension $Q.$ Let $A$ be a $k$-log-polyhomogeneous pseudodifferential operator of order $-Q.$ Let $\{\lambda(n,A)\}_{n=0}^\infty$ be the sequence of eigenvalues of $A,$ arranged in order of decreasing absolute value. We have
         \[
-            \sum_{n=0}^N \lambda(n,A) = \frac{1}{Q(k+1)!}\Res_k(A)\log(N)^k + o(\log(N)^k),\quad N\to\infty.
+            \sum_{n=0}^N \lambda(n,A) = \frac{1}{Q(k+1)!}\Res_k(A)\log(N)^{k+1} + o(\log(N)^{k+1}),\quad N\to\infty.
         \]
     \end{theorem}
     I will explain the notation and terminology later.
@@ -251,7 +252,7 @@
             K-(1-\psi)H \in \Sc(V).
         \]
     \end{lemma}
-    Obviously we have
+    Obviously we must have
     \[
         H(\xi) = \lim_{t\to\infty} t^{-m}K(\delta_t\xi),\quad x \in V\setminus \{0\}.
     \]
@@ -294,7 +295,7 @@
 \begin{lemma}
     A function $K\in C^{\infty}(V\setminus\{0\})$ is log-homogeneous of order $(m,k)$ if and only
     \[
-        (Z-m)^kK = 0.
+        (Z-m)^{k+1}K = 0.
     \]
 \end{lemma}
 Proof: Induction on $k.$
@@ -387,9 +388,9 @@ Proof: Induction on $k.$
 
 \begin{frame}{The van Erp-Yuncken calculus}
     \begin{definition}[van Erp-Yuncken (2019)]
-        A pseudodifferential family $\Pb$ of order $m$ is an $r$-fibred distribution on $\Tb_HM$ such that
+        Let
         \[
-            (\Lc_Z-m)\Pb \in C^{\infty}_p(\Tb_HM,\Omega_r).
+            \Psib^{m}_H(M) = \{T\in \Ec'_r(\Tb_HM)\;:\;(\Lc_Z-m)\Pb \in C^{\infty}_p(\Tb_HM,\Omega_r)\}.
         \]
         A pseudodifferential operator $P$ of order $m$ is defined by its Schwartz kernel being of the form $\Pb_{h=1}$ for some pseudodifferential family $\Pb.$
     \end{definition}
@@ -399,13 +400,18 @@ Proof: Induction on $k.$
 \begin{frame}{The log-polyhomogeneous van Erp-Yuncken calculus}
     The natural thing to do is to define $k$-log-polyhomogeneous operators in the same way.
     \begin{definition}
-        A $k$-log-polyhomogeneous family is an $r$-fibred distribution $\Pb \in \Ec'_r(\Tb_HM)$ such that
+        Let
         \[
-            (\Lc_Z-m)^{k+1}\Pb \in C^{\infty}_p(\Tb_HM,\Omega_r).
+            \Psib^{m,k}_H(M) = \{T\in \Ec'_r(\Tb_HM)\;:\;(\Lc_Z-m)^{k+1}\Pb \in C^{\infty}_p(\Tb_HM,\Omega_r)\}.
         \]
         A pseudodifferential operator $P$ of order $(m,k)$ is defined by its Schwartz kernel being of the form $\Pb_{h=1}$ for some pseudodifferential family $\Pb.$
     \end{definition}
-    Denote the set of pseudodifferential operators with $k$-log-polyhomogeneous order $(m,k)$ as $\Psi^{m,k}_H(M).$
+    Denote the set of pseudodifferential operators with $k$-log-polyhomogeneous order $(m,k)$ as $\Psi^{m,k}_H(M).$\\
+    \pause
+    We get nice clean statements if we define
+    \[
+        \Psib^{m,-1}_H(M) = C^\infty_p(\Tb_HM,\Omega_r),\quad \Psi^{m,-1}_H(M) = C^\infty(M\times M,\Omega M).
+    \]
 \end{frame}
 
 \begin{frame}{Yes, it is the right definition}
@@ -420,6 +426,12 @@ Proof: Induction on $k.$
         \Psi^{m_0,k_0}_H(M)\cdot \Psi^{m_1,k_1}_H(M)\subseteq \Psi^{m_0+m_1,k_0+k_1}_H(M).
     \]
     We also have closure under the adjoint operation, etc. etc.
+\end{frame}
+
+\begin{frame}{Uniqueness of pseudodifferential families}
+    \begin{lemma}
+        Let $\Pb \in \Psib^{m,k}_H(M).$ If $\Pb_1=0,$ then $\Pb \in \Psib^{m,k-1}_H(M).$
+    \end{lemma}
 \end{frame}
 
 \begin{frame}{A less-than-obvious fact}
@@ -442,6 +454,7 @@ Proof: Induction on $k.$
         \]
     \end{definition}
 \end{frame}
+
 
 \section{The residue and the trace}\label{residue_section}
 
@@ -485,6 +498,32 @@ Proof: Induction on $k.$
     \end{align*}
 \end{frame}
 
+\begin{frame}{Couchet-Yuncken's residue}
+    Let
+    \[
+        \tau:C^\infty_p(\Tb_HM,\Omega_r)\to C^\infty(M,\Omega M)
+    \]
+    be the evaluation at $h=0.$
+    \begin{definition}
+        For $A \in \Psi^{-Q}_H(M),$ let
+        \[
+            \res(A) := \tau((\Lc_Z+Q)\Ab),\quad \Ab_1=A.
+        \]
+        Define $\Res(A) := \int_M \res(A).$
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \begin{definition}
+        For $A \in \Psi^{-Q,k}_H(M),$ let
+        \[
+            \res_k(A) := \tau((\Lc_Z+Q)^{k+1}\Ab),\quad \Ab_1=A.
+        \]
+        Define $\Res_k(A) = \int_M \res_k(A).$
+    \end{definition}
+\end{frame}
+
+
 \section{Spectral theory and the trace theorem}\label{spectral_section}
 
 \begin{frame}
@@ -492,17 +531,17 @@ Proof: Induction on $k.$
 \end{frame}
 
 \begin{frame}{Operator ideals}
-    Let $\Hc$ be a Hilbert space, and $\Kc(\Hc)$ is the ideal of compact operators on $\Hc.$ For $T\in \Kc(\Hc),$ let $\lambda(T) = \{\lambda(n,T)\}_{n=0}^\infty$ be a sequence of eigenvalues of $T.$
+    Let $\Hc$ be a Hilbert space, and $\Kc(\Hc)$ is the ideal of compact operators on $\Hc.$ For $A\in \Kc(\Hc),$ let $\lambda(A) = \{\lambda(n,A)\}_{n=0}^\infty$ be a sequence of eigenvalues of $A.$
     \begin{enumerate}
-        \item{} We arrange the sequence such that $|\lambda(n,T)|$ is non-increasing. This is ambiguous, but ultimately unimportant.
-        \item{} If $T$ has finitely many eigenvalues (including none at all, this can happen in the non-normal case!) then $\lambda(T)$ should be filled out with zeros.
+        \item{} We arrange the sequence such that $|\lambda(n,A)|$ is non-increasing. This is ambiguous, but ultimately unimportant.
+        \item{} If $A$ has finitely many eigenvalues (including none at all, this can happen in the non-normal case!) then $\lambda(A)$ should be filled out with zeros.
     \end{enumerate}
 \end{frame}
 
 \begin{frame}{Weyl's inequality}
-    $\lambda(n,|T|)$ is the $(n+1)$th singular value of $T.$ Note that $|\lambda(n,T)|$ and $\lambda(n,|T|)$ are very different in general. The best we can say is that
+    $\lambda(n,|A|)$ is the $(n+1)$th singular value of $A.$ Note that $|\lambda(n,A)|$ and $\lambda(n,|A|)$ are very different in general. The best we can say is that
     \[
-        \prod_{n=0}^N |\lambda(n,T)| \leq \prod_{n=0}^N \lambda(n,|T|),\quad N\geq 0.
+        \prod_{n=0}^N |\lambda(n,A)| \leq \prod_{n=0}^N \lambda(n,|A|),\quad N\geq 0.
     \]
     (This is Weyl's inequality).
 \end{frame}
@@ -511,7 +550,7 @@ Proof: Induction on $k.$
     \begin{definition}
         Let $p,k\geq 0.$ Define
         \[
-            \Ec_{p,k}(\Hc) := \{T \in \Kc(\Hc)\;:\; \lambda(n,|T|) = O(\frac{\log(n)^k}{n^{1/p}})\}.
+            \Ec_{p,k}(\Hc) := \{A \in \Kc(\Hc)\;:\; \lambda(n,|A|) = O(\frac{\log(n)^k}{n^{1/p}})\}.
         \]
     \end{definition}
     Elementary eigenvalue estimates ensure that
@@ -529,26 +568,57 @@ Proof: Induction on $k.$
 \end{theorem}
 \end{frame}
 
-\begin{frame}{Eigenvalue estimates for weak-trace-class operators}
-    Weyl's inequality implies that if $A \in \Psi^{-m,k}_H(M),$ then
+\begin{frame}{How is it proved?}
+    For any compact operator $A,$ we have
     \[
-        \lambda(n,A) = O(n^{-\frac{Q}{m}}\log(n)^k),\quad n\to\infty.
+        \lambda(n,|A|) := \inf\{\|A-R\|_{\infty}\;:\;\mathrm{rank}(R)\leq n\}.
+    \]
+    To estimate $\lambda(n,|A|),$ we need:
+    \begin{enumerate}
+        \item{} A candidate sequence of finite-rank approximations to $A,$ $\{R_n\}_{n=0}^\infty,$
+        \item{} A good estimate for the norms $\|A-R_n\|_{\infty}.$
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Debord-Skandalis representation}
+    Let $\Pb \in \Psib^{m,k}_H(M).$ If $m<0,$ we have
+    \[
+        \Pb = \frac{1}{k!}\int_0^{1} t^{-m-1}\log(t)^k(\alpha_t)_*((\Lc_Z-m)^{k+1}\Pb)\,dt.
+    \]
+    This gives a candidate family of smoothing operators which approximate $\Pb_1.$
+\end{frame}
+
+\begin{frame}{Eigenvalue estimates for weak-trace-class operators}
+    Weyl's inequality implies that if $A \in \Psi^{m,k}_H(M)$ with $m<0,$ then
+    \[
+        \lambda(n,A) = O(n^{\frac{Q}{m}}\log(n)^k),\quad n\to\infty.
     \]
     Probably we can do better than this, and get
     \[
-        \lambda(n,A) \sim c(A)n^{-\frac{Q}{m}}\log(n)^k
+        \lambda(n,A) \sim c(A)n^{\frac{Q}{m}}\log(n)^k,\quad n\to\infty.
     \]
     for some $c(A),$ but this is out of reach at the moment.
 \end{frame}
 
 \begin{frame}{Asymptotics for sums of eigenvalues}
-    The best I can do at the moment concerns $m=Q$ and spectral averages:
+    The best I can do at the moment concerns $m=-Q$ and spectral averages:
     \begin{theorem}[M. (2026)]
         Let $A \in \Psi^{-Q,k}_H(M).$ We have
         \[
             \sum_{n=0}^N \lambda(n,A) = \frac{1}{(k+1)!Q}\Res_k(A)\log(N)^{k+1}+o(\log(N)^{k+1}).
         \]
     \end{theorem}
+\end{frame}
+
+\begin{frame}{Dixmier trace reformulation}
+    It is helpful to use the Dixmier traces
+    \[
+        \tr_{\omega,k}(A) = \omega\left(\left\{\frac{1}{\log(N+2)^k}\sum_{n=0}^N \lambda(n,A)\right\}_{k=0}^\infty\right)
+    \]
+    The theorem says that
+    \[
+        \tr_{\omega,k}(A) = \frac{1}{(k+1)!Q}\Res_k(A).
+    \]
 \end{frame}
 
 
